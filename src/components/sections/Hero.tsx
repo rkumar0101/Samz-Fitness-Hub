@@ -47,7 +47,7 @@ export default function Hero() {
       <div aria-hidden className="absolute inset-0 -z-20 premium-grid opacity-50" />
 
       <Container>
-        <div className="relative grid min-h-[100svh] grid-cols-1 items-center gap-10 pt-28 pb-16 md:pt-32 md:pb-20 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="relative grid min-h-[100svh] grid-cols-1 items-center gap-10 pt-20 pb-14 sm:pt-24 md:pt-32 md:pb-20 lg:grid-cols-[1.05fr_0.95fr]">
           {/* LEFT — Editorial copy */}
           <motion.div style={{ y: titleY }} className="relative">
             {/* Eyebrow */}
@@ -299,10 +299,10 @@ export default function Hero() {
           {STAT_CHIPS.map((s, i) => (
             <div
               key={s.label}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-md transition hover:border-white/20 hover:bg-white/[0.06]"
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-md transition hover:border-white/20 hover:bg-white/[0.06] sm:p-5"
             >
               <div className="absolute -right-6 -top-6 h-16 w-16 rounded-full bg-[color:var(--fh-red)]/10 blur-2xl transition group-hover:bg-[color:var(--fh-red)]/20" />
-              <div className="font-display text-4xl tracking-tight text-white">
+              <div className="font-display text-3xl tracking-tight text-white sm:text-4xl">
                 {s.value}
               </div>
               <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-white/55">

@@ -351,7 +351,14 @@ body {
 }
 
 /* Footer stays cinematic-dark in both themes. Override all the text/border
-   utility flips that would otherwise wash it out in light mode. */
+   utility flips that would otherwise wash it out in light mode.
+   The FOOTER ELEMENT itself has text-white class — fix it (and its inherited
+   children) before tackling specific opacity classes. */
+[data-theme="light"] footer.text-white,
+[data-theme="light"] footer {
+  color: rgba(244, 245, 247, 0.92) !important;
+}
+
 [data-theme="light"] footer .text-white,
 [data-theme="light"] footer .text-white\/95,
 [data-theme="light"] footer .text-white\/90,
@@ -393,6 +400,15 @@ body {
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px) !important;
+}
+/* Gold gradient inside footer stays LIGHT gold regardless of theme
+   (footer bg is always dark, so dark gold from light-theme vars would vanish). */
+[data-theme="light"] footer .text-gradient-gold {
+  background: linear-gradient(180deg, #f0c878 0%, #d4a85a 60%, #a8742d 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
 }
 
 /* Marquee strip in light: change bg to soft */
