@@ -1,0 +1,537 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), "Bebas Neue", Impact, sans-serif;
+}
+
+:root,
+[data-theme="dark"] {
+  --fh-bg: #07080b;
+  --fh-bg-2: #0c0e13;
+  --fh-ink: #f4f5f7;
+  --fh-muted: #9aa3b2;
+  --fh-line: rgba(255, 255, 255, 0.08);
+  --fh-card: rgba(255, 255, 255, 0.04);
+  --fh-red: #ff2a3d;
+  --fh-red-soft: #ff5566;
+  --fh-gold: #d4a85a;
+  --fh-gold-soft: #f0c878;
+  --fh-blue: #7dd3fc;
+  --fh-paper: #0c0e13;
+  --fh-border: rgba(255, 255, 255, 0.08);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --fh-bg: #f4f4f1;
+  --fh-bg-2: #ffffff;
+  --fh-ink: #0a0c10;
+  --fh-muted: #515967;
+  --fh-line: rgba(10, 12, 16, 0.1);
+  --fh-card: rgba(10, 12, 16, 0.04);
+  --fh-red: #d4172a;
+  --fh-red-soft: #c4152a;
+  --fh-gold: #8a5c1a;
+  --fh-gold-soft: #a8742d;
+  --fh-blue: #1d4ed8;
+  --fh-paper: #ffffff;
+  --fh-border: rgba(10, 12, 16, 0.1);
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+body {
+  color: var(--fh-ink);
+  background: var(--fh-bg);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--fh-red);
+  color: white;
+}
+
+/* Typography utilities */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.005em;
+}
+
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+
+/* Premium grid + glass */
+.premium-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+[data-theme="light"] .premium-grid {
+  background-image:
+    linear-gradient(rgba(10, 12, 16, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 12, 16, 0.06) 1px, transparent 1px);
+}
+
+.glass-panel {
+  background: color-mix(in srgb, var(--fh-bg-2) 70%, transparent);
+  border: 1px solid var(--fh-border);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+}
+
+.perspective-card {
+  transform-style: preserve-3d;
+  transform: perspective(1200px);
+}
+
+/* Gradient text - signature accent */
+.text-gradient-gold {
+  background: linear-gradient(
+    180deg,
+    var(--fh-gold-soft) 0%,
+    var(--fh-gold) 60%,
+    #a8742d 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.text-gradient-red {
+  background: linear-gradient(
+    180deg,
+    var(--fh-red-soft) 0%,
+    var(--fh-red) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Animated brand wordmark stroke */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
+  color: transparent;
+}
+
+[data-theme="light"] .text-stroke {
+  -webkit-text-stroke: 1px rgba(10, 12, 16, 0.35);
+}
+
+/* Marquee */
+@keyframes marquee-x {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--marquee-duration, 32s) linear infinite;
+}
+
+/* Slow rotate for ambient elements */
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.rotate-slow {
+  animation: rotate-slow 24s linear infinite;
+}
+
+/* Glow rings */
+.glow-red {
+  box-shadow:
+    0 0 0 1px rgba(255, 42, 61, 0.25),
+    0 14px 60px -18px rgba(255, 42, 61, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glow-gold {
+  box-shadow:
+    0 0 0 1px rgba(212, 168, 90, 0.3),
+    0 14px 60px -22px rgba(212, 168, 90, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Page reveal overlay */
+.page-reveal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #07080b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* ---------------------------------
+   LIGHT THEME — full override pass
+   ---------------------------------
+   The new design is dark-first. In light mode we map every dark-only
+   utility class to a sensible light equivalent so the toggle flips
+   the whole page cleanly without rewriting every component.
+*/
+
+/* Solid text → ink */
+[data-theme="light"] .text-white,
+[data-theme="light"] .text-white\/95,
+[data-theme="light"] .text-white\/90,
+[data-theme="light"] .text-white\/85,
+[data-theme="light"] .text-white\/80,
+[data-theme="light"] .text-white\/75,
+[data-theme="light"] .text-white\/72,
+[data-theme="light"] .text-white\/70,
+[data-theme="light"] .text-white\/68,
+[data-theme="light"] .text-white\/65,
+[data-theme="light"] .text-white\/60 {
+  color: var(--fh-ink) !important;
+}
+
+/* Muted text → muted ink */
+[data-theme="light"] .text-white\/55,
+[data-theme="light"] .text-white\/50,
+[data-theme="light"] .text-white\/45,
+[data-theme="light"] .text-white\/40,
+[data-theme="light"] .text-white\/35,
+[data-theme="light"] .text-white\/30 {
+  color: var(--fh-muted) !important;
+}
+
+/* Solid bg-white → pure white card */
+[data-theme="light"] .bg-white {
+  background-color: var(--fh-bg-2) !important;
+}
+
+/* Glassy bg fills → progressive ink tints (so nested elements have clear contrast) */
+[data-theme="light"] .bg-white\/\[0\.02\] {
+  background-color: rgba(10, 12, 16, 0.025) !important;
+}
+[data-theme="light"] .bg-white\/\[0\.03\] {
+  background-color: rgba(10, 12, 16, 0.04) !important;
+}
+[data-theme="light"] .bg-white\/\[0\.04\] {
+  background-color: rgba(10, 12, 16, 0.05) !important;
+}
+[data-theme="light"] .bg-white\/\[0\.05\],
+[data-theme="light"] .bg-white\/\[0\.06\] {
+  background-color: rgba(10, 12, 16, 0.07) !important;
+}
+[data-theme="light"] .bg-white\/\[0\.08\] {
+  background-color: rgba(10, 12, 16, 0.09) !important;
+}
+
+/* Inverted-contrast button utility — works correctly in both themes */
+.btn-invert {
+  background-color: var(--fh-ink);
+  color: var(--fh-bg);
+}
+.btn-invert:hover {
+  filter: brightness(0.92);
+}
+
+/* Light borders */
+[data-theme="light"] .border-white\/10,
+[data-theme="light"] .border-white\/12,
+[data-theme="light"] .border-white\/15,
+[data-theme="light"] .border-white\/20,
+[data-theme="light"] .border-white\/\[0\.08\] {
+  border-color: rgba(10, 12, 16, 0.12) !important;
+}
+[data-theme="light"] .border-white\/\[0\.06\] {
+  border-color: rgba(10, 12, 16, 0.08) !important;
+}
+
+/* Dark scrim (used on photo labels) → stays dark for legibility */
+[data-theme="light"] .bg-black\/30 {
+  background-color: rgba(10, 12, 16, 0.06) !important;
+}
+[data-theme="light"] .bg-black\/35 {
+  background-color: rgba(10, 12, 16, 0.55) !important;
+}
+[data-theme="light"] .bg-black\/45,
+[data-theme="light"] .bg-black\/55 {
+  background-color: rgba(10, 12, 16, 0.78) !important;
+}
+
+/* Photo-overlay labels: when the SAME element has both bg-black/X and
+   text-white/X classes, keep the text white in light mode. */
+[data-theme="light"] .bg-black\/55.text-white,
+[data-theme="light"] .bg-black\/55.text-white\/90,
+[data-theme="light"] .bg-black\/55.text-white\/85,
+[data-theme="light"] .bg-black\/55.text-white\/80,
+[data-theme="light"] .bg-black\/55.text-white\/75,
+[data-theme="light"] .bg-black\/45.text-white,
+[data-theme="light"] .bg-black\/45.text-white\/90,
+[data-theme="light"] .bg-black\/45.text-white\/85,
+[data-theme="light"] .bg-black\/45.text-white\/80,
+[data-theme="light"] .bg-black\/45.text-white\/75,
+[data-theme="light"] .bg-black\/35.text-white,
+[data-theme="light"] .bg-black\/35.text-white\/90,
+[data-theme="light"] .bg-black\/35.text-white\/85 {
+  color: #ffffff !important;
+}
+
+/* And descendants too (photo labels that wrap children) */
+[data-theme="light"] .bg-black\/55 .text-white,
+[data-theme="light"] .bg-black\/55 .text-white\/90,
+[data-theme="light"] .bg-black\/55 .text-white\/85,
+[data-theme="light"] .bg-black\/55 .text-white\/80,
+[data-theme="light"] .bg-black\/55 .text-white\/60,
+[data-theme="light"] .bg-black\/45 .text-white,
+[data-theme="light"] .bg-black\/45 .text-white\/90,
+[data-theme="light"] .bg-black\/45 .text-white\/85,
+[data-theme="light"] .bg-black\/45 .text-white\/80,
+[data-theme="light"] .bg-black\/45 .text-white\/60 {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+/* Theme-aware backdrops for our new cinematic sections.
+   Each section uses .fh-backdrop instead of an inline gradient so
+   the bg flips when the user toggles theme. */
+.fh-backdrop-hero {
+  background:
+    radial-gradient(900px 600px at 78% 18%, rgba(255, 42, 61, 0.18), transparent 60%),
+    radial-gradient(700px 500px at 8% 78%, rgba(212, 168, 90, 0.12), transparent 60%),
+    linear-gradient(180deg, #07080b 0%, #0a0c11 100%);
+}
+[data-theme="light"] .fh-backdrop-hero {
+  background:
+    radial-gradient(900px 600px at 78% 18%, rgba(255, 42, 61, 0.07), transparent 60%),
+    radial-gradient(700px 500px at 8% 78%, rgba(212, 168, 90, 0.1), transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, #f4f4f1 100%);
+}
+
+.fh-backdrop-soft {
+  background:
+    radial-gradient(800px 400px at 50% 0%, rgba(255, 42, 61, 0.08), transparent 70%);
+}
+[data-theme="light"] .fh-backdrop-soft {
+  background:
+    radial-gradient(800px 400px at 50% 0%, rgba(255, 42, 61, 0.04), transparent 70%);
+}
+
+/* Header — let Header.tsx control its own bg via Tailwind classes.
+   Just override link colors when in light mode (utility classes handle the rest). */
+[data-theme="light"] header a,
+[data-theme="light"] header button {
+  color: var(--fh-ink);
+}
+
+/* Footer stays cinematic-dark in both themes. Override all the text/border
+   utility flips that would otherwise wash it out in light mode. */
+[data-theme="light"] footer .text-white,
+[data-theme="light"] footer .text-white\/95,
+[data-theme="light"] footer .text-white\/90,
+[data-theme="light"] footer .text-white\/85,
+[data-theme="light"] footer .text-white\/80,
+[data-theme="light"] footer .text-white\/75,
+[data-theme="light"] footer .text-white\/72,
+[data-theme="light"] footer .text-white\/70,
+[data-theme="light"] footer .text-white\/68,
+[data-theme="light"] footer .text-white\/65 {
+  color: rgba(244, 245, 247, 0.92) !important;
+}
+[data-theme="light"] footer .text-white\/60,
+[data-theme="light"] footer .text-white\/55,
+[data-theme="light"] footer .text-white\/50,
+[data-theme="light"] footer .text-white\/45 {
+  color: rgba(244, 245, 247, 0.55) !important;
+}
+[data-theme="light"] footer .text-white\/40,
+[data-theme="light"] footer .text-white\/35,
+[data-theme="light"] footer .text-white\/30 {
+  color: rgba(244, 245, 247, 0.4) !important;
+}
+[data-theme="light"] footer .bg-white\/\[0\.02\],
+[data-theme="light"] footer .bg-white\/\[0\.03\],
+[data-theme="light"] footer .bg-white\/\[0\.04\],
+[data-theme="light"] footer .bg-white\/\[0\.05\],
+[data-theme="light"] footer .bg-white\/\[0\.06\],
+[data-theme="light"] footer .bg-white\/\[0\.08\] {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+[data-theme="light"] footer .border-white\/10,
+[data-theme="light"] footer .border-white\/12,
+[data-theme="light"] footer .border-white\/15,
+[data-theme="light"] footer .border-white\/20 {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+[data-theme="light"] footer .premium-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px) !important;
+}
+
+/* Marquee strip in light: change bg to soft */
+[data-theme="light"] .marquee {
+  color: var(--fh-ink);
+}
+
+/* Page bg / sections that use --fh-bg flip via the CSS var already.
+   Make sure body bg is the new bg. */
+[data-theme="light"] body {
+  background: var(--fh-bg);
+}
+
+/* Dark theme: adapt utility classes from old design so legacy sections look right while we redesign them */
+[data-theme="dark"] .bg-white {
+  background-color: var(--fh-bg-2) !important;
+}
+
+[data-theme="dark"] .bg-\[\#F7FAFC\],
+[data-theme="dark"] .bg-black\/\[0\.02\] {
+  background-color: var(--fh-bg) !important;
+}
+
+[data-theme="dark"] .bg-black {
+  background-color: #050608 !important;
+}
+
+[data-theme="dark"] .text-black {
+  color: var(--fh-ink) !important;
+}
+
+[data-theme="dark"] .text-black\/70,
+[data-theme="dark"] .text-black\/75,
+[data-theme="dark"] .text-black\/68,
+[data-theme="dark"] .text-black\/65,
+[data-theme="dark"] .text-black\/62,
+[data-theme="dark"] .text-black\/60,
+[data-theme="dark"] .text-black\/55,
+[data-theme="dark"] .text-black\/50,
+[data-theme="dark"] .text-black\/45,
+[data-theme="dark"] .text-black\/40 {
+  color: var(--fh-muted) !important;
+}
+
+[data-theme="dark"] .text-blue-700 {
+  color: #93c5fd !important;
+}
+
+[data-theme="dark"] .text-red-600 {
+  color: var(--fh-red) !important;
+}
+
+[data-theme="dark"] .text-black\/15 {
+  color: rgba(255, 255, 255, 0.18) !important;
+}
+
+[data-theme="dark"] .text-red-700 {
+  color: #fda4af !important;
+}
+
+[data-theme="dark"] .border-black\/10 {
+  border-color: var(--fh-border) !important;
+}
+
+[data-theme="dark"] .shadow-sm,
+[data-theme="dark"] .shadow-md,
+[data-theme="dark"] .shadow-lg,
+[data-theme="dark"] .shadow-xl {
+  box-shadow: 0 24px 80px -48px rgba(0, 0, 0, 0.75) !important;
+}
+
+[data-theme="dark"] header {
+  background: rgba(7, 8, 11, 0.78) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] header a,
+[data-theme="dark"] header button {
+  color: #f4f5f7;
+}
+
+[data-theme="dark"] header .bg-white {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #f4f5f7 !important;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: #6c7689 !important;
+}
+
+[data-theme="dark"] .bg-blue-600\/5,
+[data-theme="dark"] .bg-blue-600\/10 {
+  background-color: rgba(125, 211, 252, 0.1) !important;
+}
+
+[data-theme="dark"] .bg-red-500\/10 {
+  background-color: rgba(255, 42, 61, 0.12) !important;
+}
+
+.theme-toggle__sun {
+  display: none;
+}
+
+.theme-toggle__moon,
+.theme-toggle__sun {
+  font-size: 0;
+}
+
+.theme-toggle__moon::before {
+  content: "☾";
+  font-size: 18px;
+}
+
+.theme-toggle__sun::before {
+  content: "☀";
+  font-size: 15px;
+}
+
+[data-theme="dark"] .theme-toggle__moon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle__sun {
+  display: inline;
+}
+
+/* Disable smooth scroll on reduce-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
