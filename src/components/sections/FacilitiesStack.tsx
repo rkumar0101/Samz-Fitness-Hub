@@ -3,19 +3,7 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsDesktop(mql.matches);
-    update();
-    mql.addEventListener("change", update);
-    return () => mql.removeEventListener("change", update);
-  }, []);
-  return isDesktop;
-}
+import { useRef } from "react";
 
 type Facility = {
   num: string;
@@ -71,14 +59,14 @@ const FACILITIES: Facility[] = [
 ];
 
 export default function FacilitiesStack() {
-  const isDesktop = useIsDesktop();
   const sectionRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
 
-  // Header parallax fade (desktop only — saves perf on mobile)
+  // Header parallax fade — runs on every breakpoint; visually negligible
+  // on mobile but consistent props across renders avoids hydration drift.
   const headerY = useTransform(scrollYProgress, [0, 0.15], [0, -50]);
   const headerOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0.6]);
 
@@ -90,9 +78,8 @@ export default function FacilitiesStack() {
       className="relative bg-[color:var(--fh-bg)] text-white"
     >
       <Container>
-        {/* Section header */}
         <motion.div
-          style={isDesktop ? { y: headerY, opacity: headerOpacity } : undefined}
+          style={{ y: headerY, opacity: headerOpacity }}
           className="max-w-5xl pt-24 pb-12 md:pt-32 md:pb-16"
         >
           <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-[color:var(--fh-red)]">
@@ -108,23 +95,23 @@ export default function FacilitiesStack() {
           </p>
         </motion.div>
 
-        {/* Cards: desktop = sticky stack, mobile = clean vertical column */}
+        {/* Cards. CSS handles the layout switch:
+            - mobile (default): static cards, normal vertical flow
+            - lg and up: sticky-stacking cards with progressive top offset
+            Framer-motion props are identical across breakpoints so there's
+            no hydration drift and the reveal animation always fires. */}
         <div className="relative pb-24 md:pb-32">
           {FACILITIES.map((f, i) => {
-            const topOffset = 96 + i * 22;
-            // On mobile we want a plain card with reveal — no sticky overlap that cuts images.
-            const articleClass = isDesktop
-              ? "sticky mb-6 overflow-hidden rounded-[2.5rem] border border-white/10 bg-[color:var(--fh-bg-2)] shadow-[0_40px_120px_-40px_rgba(0,0,0,0.7)] will-change-transform"
-              : "mb-8 overflow-hidden rounded-[1.75rem] border border-white/10 bg-[color:var(--fh-bg-2)] shadow-[0_24px_60px_-30px_rgba(0,0,0,0.5)]";
+            const topOffset = 96 + i * 22; // only effective when sticky (lg+)
             return (
               <motion.article
                 key={f.num}
-                className={articleClass}
-                style={isDesktop ? { top: `${topOffset}px` } : undefined}
-                initial={isDesktop ? false : { opacity: 0, y: 24 }}
-                whileInView={isDesktop ? undefined : { opacity: 1, y: 0 }}
-                viewport={isDesktop ? undefined : { once: true, amount: 0.2 }}
-                transition={isDesktop ? undefined : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                style={{ top: `${topOffset}px` }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="mb-8 overflow-hidden rounded-[1.75rem] border border-white/10 bg-[color:var(--fh-bg-2)] shadow-[0_24px_60px_-30px_rgba(0,0,0,0.5)] lg:sticky lg:mb-6 lg:rounded-[2.5rem] lg:shadow-[0_40px_120px_-40px_rgba(0,0,0,0.7)] lg:will-change-transform"
               >
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_1.05fr]">
                   {/* Left — copy */}
