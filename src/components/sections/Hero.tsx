@@ -5,7 +5,19 @@ import { Container } from "@/components/ui/Container";
 import { BRAND, BRANCHES, WHATSAPP_DEFAULT_MESSAGE } from "@/lib/constants";
 import { waLink } from "@/lib/whatsapp";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
+  return isDesktop;
+}
 
 const HERO_AREAS = [
   { name: "Laketown", id: "fit-beat", img: "/gym-images/fit-beat-1.jpeg" },
@@ -24,6 +36,7 @@ const STAT_CHIPS = [
 export default function Hero() {
   const ref = useRef<HTMLElement | null>(null);
   const reduce = useReducedMotion();
+  const isDesktop = useIsDesktop();
   const whatsappHref = waLink(BRAND.phoneE164, WHATSAPP_DEFAULT_MESSAGE);
 
   const { scrollYProgress } = useScroll({
@@ -31,9 +44,12 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const photoY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -120]);
-  const photoScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.05]);
-  const titleY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 80]);
+  // Scroll-driven transforms only on desktop. On mobile we keep things static
+  // to avoid the layout/perf cost of recomputing transforms on every scroll frame.
+  const enableScrollAnim = isDesktop && !reduce;
+  const photoY = useTransform(scrollYProgress, [0, 1], [0, enableScrollAnim ? -120 : 0]);
+  const photoScale = useTransform(scrollYProgress, [0, 1], [1, enableScrollAnim ? 1.05 : 1]);
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, enableScrollAnim ? 80 : 0]);
 
   return (
     <section

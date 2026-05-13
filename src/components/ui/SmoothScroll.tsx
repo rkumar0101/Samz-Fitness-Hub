@@ -11,12 +11,19 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
 
     if (prefersReduced) return;
 
+    // Disable smooth scroll on touch (mobile) — native scroll feels smoother
+    // there and avoids the stutter Lenis introduces on cheaper Android devices.
+    const isTouch =
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
     const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
+      duration: 0.9,
+      easing: (t) => 1 - Math.pow(1 - t, 3),
+      smoothWheel: !isTouch,
       wheelMultiplier: 1,
       touchMultiplier: 1.4,
+      syncTouch: false,
     });
 
     let frame = 0;

@@ -47,6 +47,9 @@ export type Branch = {
   };
   note?: string;
   images: string[];
+  /** Approximate geo coordinates for LocalBusiness schema. */
+  geo?: { lat: number; lng: number };
+  postalCode?: string;
 };
 
 export const DEFAULT_TIMINGS = [
@@ -87,6 +90,8 @@ export const BRANCHES: Branch[] = [
       "/gym-images/fit-beat-4.jpeg",
       "/gym-images/fit-beat-5.jpeg",
     ],
+    geo: { lat: 26.7404, lng: 88.4254 },
+    postalCode: "734007",
   },
   {
     id: "fitness-hub-3",
@@ -108,6 +113,8 @@ export const BRANCHES: Branch[] = [
       ptMonthly: 1500,
     },
     images: ["/gym-images/fitness-hub-4-2.jpeg", "/gym-images/fit-beat-3.jpeg"],
+    geo: { lat: 26.7271, lng: 88.3953 },
+    postalCode: "734001",
   },
   {
     id: "fitness-hub-4",
@@ -138,6 +145,8 @@ export const BRANCHES: Branch[] = [
       "/gym-images/fitness-hub-4-4.jpeg",
       "/gym-images/fitness-hub-4-5.jpeg",
     ],
+    geo: { lat: 26.7180, lng: 88.4150 },
+    postalCode: "734006",
   },
   {
     id: "fitness-hub-2",
@@ -171,5 +180,7 @@ export const BRANCHES: Branch[] = [
       "/gym-images/fitness-hub-2-4.jpeg",
       "/gym-images/fitness-hub-2-5.jpeg",
     ],
+    geo: { lat: 26.7242, lng: 88.4365 },
+    postalCode: "734006",
   },
 ];

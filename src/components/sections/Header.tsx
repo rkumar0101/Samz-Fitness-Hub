@@ -105,10 +105,12 @@ export default function Header() {
         <AnimatePresence>
           {open ? (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="md:hidden"
+              key="mobile-menu"
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="origin-top md:hidden"
             >
               <div className="pb-4">
                 <div className="mt-2 grid gap-1 rounded-2xl border border-white/10 bg-white/[0.04] p-3 backdrop-blur-xl">
@@ -126,6 +128,7 @@ export default function Header() {
                     href={whatsappHref}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => setOpen(false)}
                     className="mt-1 rounded-xl bg-[color:var(--fh-red)] px-4 py-3 text-center text-sm font-semibold uppercase tracking-[0.18em] text-white"
                   >
                     WhatsApp
