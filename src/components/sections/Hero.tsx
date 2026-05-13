@@ -6,6 +6,7 @@ import { BRAND, BRANCHES, WHATSAPP_DEFAULT_MESSAGE } from "@/lib/constants";
 import { waLink } from "@/lib/whatsapp";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { trackWa } from "@/lib/analytics";
 
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -159,6 +160,7 @@ export default function Hero() {
                 href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWa({ source: "hero" })}
                 className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-[color:var(--fh-red)] px-7 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-white transition hover:-translate-y-[2px] hover:shadow-[0_18px_50px_-18px_rgba(255,42,61,0.7)]"
               >
                 <span className="relative z-10">Talk on WhatsApp</span>

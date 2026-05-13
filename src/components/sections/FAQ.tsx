@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { BRAND, BRANCHES, WHATSAPP_DEFAULT_MESSAGE } from "@/lib/constants";
 import { waLink } from "@/lib/whatsapp";
+import { trackWa } from "@/lib/analytics";
 
 const FAQS: { q: string; a: string }[] = [
   {
@@ -176,6 +177,7 @@ export default function FAQ() {
                 href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWa({ source: "faq_helper" })}
                 className="mt-5 inline-flex items-center gap-2 rounded-full bg-[color:var(--fh-red)] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:-translate-y-0.5"
               >
                 Ask on WhatsApp

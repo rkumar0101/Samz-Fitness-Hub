@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { BRAND, BRANCHES } from "@/lib/constants";
 import { waLink } from "@/lib/whatsapp";
+import { trackWa, trackMaps } from "@/lib/analytics";
 
 function inr(v: number) {
   return new Intl.NumberFormat("en-IN", {
@@ -238,6 +239,7 @@ function DesktopPanel({
                 href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWa({ source: "branch_panel", branch: branch.id })}
                 className="group inline-flex items-center gap-2 rounded-full bg-[color:var(--fh-red)] px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-18px_rgba(255,42,61,0.7)]"
               >
                 WhatsApp this branch
@@ -249,6 +251,7 @@ function DesktopPanel({
                 href={branch.mapLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackMaps({ source: "branch_panel", branch: branch.id })}
                 className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85 transition hover:bg-white/[0.08]"
               >
                 Get directions
@@ -433,6 +436,7 @@ function MobilePanel({
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWa({ source: "branch_panel_mobile", branch: branch.id })}
             className="inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--fh-red)] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white"
           >
             WhatsApp
@@ -441,6 +445,7 @@ function MobilePanel({
             href={branch.mapLink}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackMaps({ source: "branch_panel_mobile", branch: branch.id })}
             className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85"
           >
             Directions

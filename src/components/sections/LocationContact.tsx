@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { BRAND, BRANCHES, type Branch } from "@/lib/constants";
 import { waLink } from "@/lib/whatsapp";
+import { trackWa, trackMaps, trackFormSubmit } from "@/lib/analytics";
 
 type LeadState = "idle" | "loading" | "success" | "error";
 type FormShape = { name: string; phone: string; message: string };
@@ -29,6 +30,11 @@ export default function LocationContact() {
     if (!form.name.trim() || !form.phone.trim()) {
       setErrorMsg("Please enter your name and phone number.");
       setStatus("error");
+      trackFormSubmit({
+        source: "branch-contact",
+        branch: active.id,
+        status: "validation_error",
+      });
       return;
     }
 
@@ -48,9 +54,19 @@ export default function LocationContact() {
       if (!res.ok) throw new Error("Failed");
       setStatus("success");
       setForm({ name: "", phone: "", message: "" });
+      trackFormSubmit({
+        source: "branch-contact",
+        branch: active.id,
+        status: "submitted",
+      });
     } catch {
       setStatus("error");
       setErrorMsg("Could not submit. Try WhatsApp instead.");
+      trackFormSubmit({
+        source: "branch-contact",
+        branch: active.id,
+        status: "server_error",
+      });
     }
   }
 
@@ -296,6 +312,7 @@ function BranchDetail({
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWa({ source: "branch_contact", branch: branch.id })}
               className="inline-flex items-center gap-2 rounded-full bg-[color:var(--fh-red)] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:-translate-y-0.5"
             >
               WhatsApp
@@ -304,6 +321,7 @@ function BranchDetail({
               href={branch.mapLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackMaps({ source: "branch_contact", branch: branch.id })}
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85 transition hover:bg-white/[0.08]"
             >
               Open in Maps

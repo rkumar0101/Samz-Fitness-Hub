@@ -3,6 +3,7 @@
 import { Container } from "@/components/ui/Container";
 import { BRAND, BRANCHES, WHATSAPP_DEFAULT_MESSAGE } from "@/lib/constants";
 import { waLink } from "@/lib/whatsapp";
+import { trackWa, trackMaps } from "@/lib/analytics";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -189,6 +190,7 @@ export default function CompareBranches() {
                         )}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackWa({ source: "compare_table", branch: b.id })}
                         className="inline-flex items-center justify-center gap-2 rounded-full bg-[color:var(--fh-red)] px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white transition hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-14px_rgba(255,42,61,0.7)]"
                       >
                         WhatsApp
@@ -197,6 +199,7 @@ export default function CompareBranches() {
                         href={b.mapLink}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackMaps({ source: "compare_table", branch: b.id })}
                         className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85 transition hover:bg-white/[0.05]"
                       >
                         Get directions
@@ -246,6 +249,7 @@ export default function CompareBranches() {
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWa({ source: "compare_card_mobile", branch: b.id })}
                   className="flex-1 rounded-full bg-[color:var(--fh-red)] py-2.5 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-white"
                 >
                   WhatsApp
@@ -254,6 +258,7 @@ export default function CompareBranches() {
                   href={b.mapLink}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackMaps({ source: "compare_card_mobile", branch: b.id })}
                   className="flex-1 rounded-full border border-white/15 py-2.5 text-center text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85"
                 >
                   Directions
@@ -284,6 +289,7 @@ export default function CompareBranches() {
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackWa({ source: "compare_bottom_cta" })}
             className="btn-invert inline-flex items-center gap-3 rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] transition hover:-translate-y-0.5"
           >
             Ask on WhatsApp

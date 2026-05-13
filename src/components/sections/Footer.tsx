@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
+import { trackWa, trackPhone, trackEmail } from "@/lib/analytics";
 import {
   BRAND,
   BRANCHES,
@@ -62,6 +65,7 @@ export default function Footer() {
                   href={whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackWa({ source: "footer" })}
                   className="inline-flex items-center gap-2 rounded-full bg-[color:var(--fh-red)] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:-translate-y-0.5"
                 >
                   Talk on WhatsApp
@@ -83,6 +87,7 @@ export default function Footer() {
               <div className="mt-4 space-y-3 text-sm">
                 <a
                   href="tel:+919832589366"
+                  onClick={() => trackPhone({ source: "footer" })}
                   className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:bg-white/[0.06]"
                 >
                   <span className="text-white/55">Phone</span>
@@ -90,6 +95,7 @@ export default function Footer() {
                 </a>
                 <a
                   href={`mailto:${BRAND.email}`}
+                  onClick={() => trackEmail({ source: "footer" })}
                   className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 transition hover:bg-white/[0.06]"
                 >
                   <span className="shrink-0 text-white/55">Email</span>

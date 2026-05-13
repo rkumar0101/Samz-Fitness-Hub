@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import { trackWa } from "@/lib/analytics";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -73,6 +74,7 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               data-cursor-label="WhatsApp"
+              onClick={() => trackWa({ source: "header_desktop" })}
               className="hidden items-center gap-2 rounded-full bg-[color:var(--fh-red)] px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition hover:translate-y-[-1px] hover:shadow-[0_12px_40px_-12px_rgba(255,42,61,0.7)] sm:inline-flex"
             >
               WhatsApp
@@ -128,7 +130,10 @@ export default function Header() {
                     href={whatsappHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      trackWa({ source: "header_mobile_menu" });
+                      setOpen(false);
+                    }}
                     className="mt-1 rounded-xl bg-[color:var(--fh-red)] px-4 py-3 text-center text-sm font-semibold uppercase tracking-[0.18em] text-white"
                   >
                     WhatsApp

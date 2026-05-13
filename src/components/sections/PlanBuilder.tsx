@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { BRAND } from "@/lib/constants";
+import { trackPlanGenerated, trackPlanDownloaded } from "@/lib/analytics";
 
 type Inputs = {
   goal: string;
@@ -115,6 +116,10 @@ export default function PlanBuilder() {
       const data = await res.json();
       if (!data.ok) throw new Error(data.error || "Failed");
       setPlan(data.plan);
+      trackPlanGenerated({
+        goal: inputs.goal,
+        daysPerWeek: inputs.daysPerWeek,
+      });
       // Scroll the preview into view
       setTimeout(() => {
         document
@@ -221,6 +226,7 @@ export default function PlanBuilder() {
     w.document.open();
     w.document.write(html);
     w.document.close();
+    trackPlanDownloaded({ goal: inputs.goal });
     setGateOpen(false);
   }
 
