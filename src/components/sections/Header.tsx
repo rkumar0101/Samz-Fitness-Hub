@@ -40,14 +40,28 @@ export default function Header() {
             data-cursor-label="Home"
           >
             <span className="relative inline-flex h-10 w-10 overflow-hidden rounded-xl border border-white/15 bg-white/[0.04]">
-              <Image
-                src="/samz-fitness-hub.jpeg"
-                alt={`${BRAND.name} logo`}
-                fill
-                className="object-contain"
-                sizes="40px"
-                priority
-              />
+              {/* Theme-aware logo. Both render to DOM; CSS shows the
+                  one matching the active theme (no hydration flash). */}
+              <span className="logo-on-light absolute inset-0">
+                <Image
+                  src="/samz-fitness-hub-light.jpeg"
+                  alt={`${BRAND.name} logo`}
+                  fill
+                  className="object-contain"
+                  sizes="40px"
+                  priority
+                />
+              </span>
+              <span className="logo-on-dark absolute inset-0">
+                <Image
+                  src="/samz-fitness-hub-dark.png"
+                  alt={`${BRAND.name} logo`}
+                  fill
+                  className="object-contain"
+                  sizes="40px"
+                  priority
+                />
+              </span>
             </span>
             <span className="font-display text-base uppercase tracking-wide text-white">
               {BRAND.name}

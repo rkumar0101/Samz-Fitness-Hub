@@ -61,9 +61,9 @@ export const metadata: Metadata = {
     siteName: BRAND.name,
     images: [
       {
-        url: "/samz-fitness-hub.jpeg",
-        width: 900,
-        height: 720,
+        url: "/samz-fitness-hub-light.jpeg",
+        width: 1024,
+        height: 1024,
         alt: `${BRAND.name} — best gym in Siliguri`,
       },
     ],
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: `Best Gym in Siliguri | ${BRAND.name}`,
     description:
       "4 branches across Laketown, Arabinda Pally, Haiderpara, and Central Siliguri. Transparent plans, PT, morning + evening slots.",
-    images: ["/samz-fitness-hub.jpeg"],
+    images: ["/samz-fitness-hub-light.jpeg"],
   },
   robots: {
     index: true,
@@ -103,7 +103,7 @@ function buildSchemaGraph() {
     "@id": `${SITE_URL}#organization`,
     name: BRAND.name,
     url: SITE_URL,
-    logo: `${SITE_URL}/samz-fitness-hub.jpeg`,
+    logo: `${SITE_URL}/samz-fitness-hub-light.jpeg`,
     sameAs: [] as string[],
     contactPoint: [
       {

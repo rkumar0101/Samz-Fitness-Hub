@@ -460,6 +460,22 @@ body {
   background: var(--fh-bg);
 }
 
+/* Theme-aware logo swap. Render BOTH variants in the markup and let
+   CSS show only the one matching the active theme. Avoids any flash
+   of wrong logo during hydration. */
+.logo-on-dark {
+  display: none;
+}
+.logo-on-light {
+  display: block;
+}
+[data-theme="dark"] .logo-on-light {
+  display: none;
+}
+[data-theme="dark"] .logo-on-dark {
+  display: block;
+}
+
 /* Dark theme: adapt utility classes from old design so legacy sections look right while we redesign them */
 [data-theme="dark"] .bg-white {
   background-color: var(--fh-bg-2) !important;

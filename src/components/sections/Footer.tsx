@@ -38,8 +38,10 @@ export default function Footer() {
             <div>
               <div className="flex items-center gap-4">
                 <span className="relative inline-flex h-12 w-12 overflow-hidden rounded-2xl border border-white/15 bg-white/[0.04]">
+                  {/* Footer is always dark — use the dark-bg variant
+                      so the logo background blends with the footer. */}
                   <Image
-                    src="/samz-fitness-hub.jpeg"
+                    src="/samz-fitness-hub-dark.png"
                     alt={`${BRAND.name} logo`}
                     fill
                     className="object-contain"
