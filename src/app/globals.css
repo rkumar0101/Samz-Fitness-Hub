@@ -286,6 +286,44 @@ body {
   background-color: rgba(10, 12, 16, 0.78) !important;
 }
 
+/* When a wrapper is marked `.fh-photo-overlay` (used on photo cards
+   that have an image + gradient + floating text), every text-white
+   variant inside stays white in light mode. This covers the case
+   where the overlay text sits directly on a gradient — no pill
+   background to anchor — so my bg-black/X.text-white rules don't
+   reach it. */
+[data-theme="light"] .fh-photo-overlay .text-white,
+[data-theme="light"] .fh-photo-overlay .text-white\/95 {
+  color: #ffffff !important;
+}
+[data-theme="light"] .fh-photo-overlay .text-white\/90,
+[data-theme="light"] .fh-photo-overlay .text-white\/85,
+[data-theme="light"] .fh-photo-overlay .text-white\/80,
+[data-theme="light"] .fh-photo-overlay .text-white\/75 {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+[data-theme="light"] .fh-photo-overlay .text-white\/72,
+[data-theme="light"] .fh-photo-overlay .text-white\/70,
+[data-theme="light"] .fh-photo-overlay .text-white\/68,
+[data-theme="light"] .fh-photo-overlay .text-white\/65 {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+[data-theme="light"] .fh-photo-overlay .text-white\/60,
+[data-theme="light"] .fh-photo-overlay .text-white\/55,
+[data-theme="light"] .fh-photo-overlay .text-white\/50,
+[data-theme="light"] .fh-photo-overlay .text-white\/45 {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+[data-theme="light"] .fh-photo-overlay .text-white\/40,
+[data-theme="light"] .fh-photo-overlay .text-white\/35,
+[data-theme="light"] .fh-photo-overlay .text-white\/30 {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+[data-theme="light"] .fh-photo-overlay .text-white\/15,
+[data-theme="light"] .fh-photo-overlay .text-white\/\[0\.04\] {
+  color: rgba(255, 255, 255, 0.15) !important;
+}
+
 /* Photo-overlay labels: when the SAME element has both bg-black/X and
    text-white/X classes, keep the text white in light mode. */
 [data-theme="light"] .bg-black\/55.text-white,

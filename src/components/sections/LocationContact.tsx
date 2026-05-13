@@ -261,7 +261,7 @@ function BranchDetail({
   return (
     <article className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.03] lg:rounded-[2rem]">
       {/* Hero photo */}
-      <div className="relative h-56 sm:h-64 md:h-72">
+      <div className="fh-photo-overlay relative h-56 sm:h-64 md:h-72">
         <Image
           src={branch.images[branch.images.length - 1]}
           alt={`${branch.name} interior in ${branch.area}`}

@@ -266,7 +266,7 @@ function DesktopPanel({
           <div className="relative h-full max-h-[68vh] min-h-[320px]">
             <motion.div
               style={{ x: imageX, scale: imageScale }}
-              className="absolute right-0 top-0 h-[78%] w-[88%] overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.7)]"
+              className="fh-photo-overlay absolute right-0 top-0 h-[78%] w-[88%] overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_40px_120px_-40px_rgba(0,0,0,0.7)]"
             >
               <Image
                 src={mainImg}
@@ -284,7 +284,7 @@ function DesktopPanel({
 
             <motion.div
               style={{ x: sideX }}
-              className="absolute bottom-0 left-0 h-[44%] w-[44%] overflow-hidden rounded-[1.5rem] border border-white/12 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.7)]"
+              className="fh-photo-overlay absolute bottom-0 left-0 h-[44%] w-[44%] overflow-hidden rounded-[1.5rem] border border-white/12 shadow-[0_28px_70px_-30px_rgba(0,0,0,0.7)]"
             >
               <Image
                 src={sideImg}
@@ -377,7 +377,7 @@ function MobilePanel({
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03]"
     >
-      <div className="relative h-56 sm:h-72">
+      <div className="fh-photo-overlay relative h-56 sm:h-72">
         <Image
           src={mainImg}
           alt={`${branch.name} interior in ${branch.area}, Siliguri`}
