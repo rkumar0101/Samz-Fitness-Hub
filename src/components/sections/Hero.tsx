@@ -139,10 +139,13 @@ export default function Hero() {
               transition={{ duration: 0.7, delay: 0.8 }}
               className="mt-6 max-w-xl text-base leading-7 text-white/72 md:text-[17px]"
             >
-              Choose your nearest{" "}
-              <strong className="font-semibold text-white">Samz Fitness Hub</strong>{" "}
-              branch. Morning and evening batches, personal training support, and
-              transparent membership pricing across all four gyms in Siliguri.
+              Looking for the best gym in Siliguri?{" "}
+              <strong className="font-semibold text-white">
+                Samz Fitness Hub
+              </strong>{" "}
+              runs 4 branches across Laketown, Arabinda Pally, Haiderpara, and
+              central Siliguri — with morning and evening batches, personal
+              training support, and transparent membership pricing.
             </motion.p>
 
             {/* CTAs */}

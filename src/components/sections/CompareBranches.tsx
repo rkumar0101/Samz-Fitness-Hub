@@ -63,9 +63,10 @@ export default function CompareBranches() {
             <span className="text-gradient-gold">budget and route.</span>
           </h2>
           <p className="mt-6 max-w-2xl text-base leading-7 text-white/65">
-            Pricing, timings, and locations for every Samz Fitness Hub gym in
-            Siliguri. All four branches in one view, so you can choose the
-            closest one without making a single call.
+            Compare the best gyms in Siliguri side by side. Pricing, timings,
+            and locations for every Samz Fitness Hub branch — Laketown,
+            Arabinda Pally, Haiderpara, and Central — in one view, so you can
+            choose the closest one without making a single call.
           </p>
         </div>
 

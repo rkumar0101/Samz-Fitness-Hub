@@ -44,16 +44,17 @@ export default function Footer() {
                   />
                 </span>
                 <span className="text-[10px] font-bold uppercase tracking-[0.32em] text-[color:var(--fh-red)]">
-                  Strongest gym network in Siliguri
+                  Best gym in Siliguri · 4 branches
                 </span>
               </div>
               <p className="mt-6 h-display text-5xl leading-[0.92] sm:text-6xl md:text-7xl lg:text-[6rem]">
                 Samz <span className="text-gradient-gold">Fitness Hub.</span>
               </p>
               <p className="mt-5 max-w-xl text-sm leading-7 text-white/65">
-                Four neighbourhood gyms across Siliguri. Pick your nearest branch,
-                lock a slot, and start. We keep pricing, timings, and training
-                support transparent so consistency feels easy.
+                The best gym in Siliguri with 4 neighbourhood branches —
+                Laketown, Arabinda Pally, Haiderpara, and Central. Pick your
+                nearest, lock a slot, and start. Pricing, timings, and training
+                support are kept transparent so consistency feels easy.
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
