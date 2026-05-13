@@ -4,6 +4,7 @@ import "./globals.css";
 import { BRAND, BRANCHES } from "@/lib/constants";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import PageReveal from "@/components/ui/PageReveal";
+import Clarity from "@/components/ui/Clarity";
 import { GoogleTagManager } from "@next/third-parties/google";
 
 
@@ -256,6 +257,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
         />
         <div className="pointer-events-none fixed inset-0 z-[1] opacity-[0.035] mix-blend-overlay bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22 viewBox=%220 0 160 160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>')]" />
+        <Clarity />
         <SmoothScroll>
           <PageReveal />
           {children}
