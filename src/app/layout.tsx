@@ -4,6 +4,8 @@ import "./globals.css";
 import { BRAND, BRANCHES } from "@/lib/constants";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import PageReveal from "@/components/ui/PageReveal";
+import { GoogleTagManager } from "@next/third-parties/google";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -233,17 +235,14 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${bebas.variable}`}
     >
+      <GoogleTagManager gtmId="GTM-WTDCVMGN" />
+
       <body
         className="min-h-dvh bg-[color:var(--fh-bg)] font-sans text-[color:var(--fh-ink)] antialiased"
         suppressHydrationWarning
       >
         <script
           dangerouslySetInnerHTML={{
-            // Time-based default theme (overridable by saved user preference):
-            //   05:00 – 17:59 → light (day)
-            //   18:00 – 04:59 → dark (night)
-            // If the user has explicitly toggled the theme, that choice is
-            // persisted in localStorage and always wins.
             __html:
               "try{var t=localStorage.getItem('samz-theme');var d;if(t==='dark'||t==='light'){d=t==='dark'}else{var h=new Date().getHours();d=h>=18||h<5}document.documentElement.dataset.theme=d?'dark':'light'}catch(e){document.documentElement.dataset.theme='dark'}",
           }}
