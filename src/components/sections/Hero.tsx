@@ -81,8 +81,9 @@ export default function Hero() {
 
             {/* Semantic H1 (screen readers + SEO) */}
             <h1 className="sr-only">
-              Gyms in Siliguri. 4 locations across Laketown, Arabinda Pally,
-              Haiderpara, and Central Siliguri.
+              Best gym in Siliguri — Samz Fitness Hub. 4 neighbourhood
+              locations across Laketown, Arabinda Pally, Haiderpara, and
+              Central Siliguri with transparent monthly and yearly memberships.
             </h1>
 
             {/* Visual H1 — editorial stack */}

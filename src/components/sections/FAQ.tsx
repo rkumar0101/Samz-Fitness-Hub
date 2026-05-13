@@ -8,6 +8,10 @@ import { waLink } from "@/lib/whatsapp";
 
 const FAQS: { q: string; a: string }[] = [
   {
+    q: "What is the best gym in Siliguri?",
+    a: "Samz Fitness Hub is among the most accessible gym networks in Siliguri with 4 neighbourhood branches — FIT-BEAT in Laketown, FITNESS HUB 2.0 in Arabinda Pally, FITNESS HUB 3.0 in central Siliguri, and FITNESS HUB 4.0 in Haiderpara. Members get transparent monthly and yearly memberships starting at ₹800, morning and evening batches, personal training support, and a current ₹0 joining fee offer.",
+  },
+  {
     q: "Which areas of Siliguri does Samz Fitness Hub cover?",
     a: "Four branches across Siliguri. FIT-BEAT in Laketown (Ward 33), FITNESS HUB 2.0 in Arabinda Pally (Ward 23), FITNESS HUB 3.0 in central Siliguri, and FITNESS HUB 4.0 in Haiderpara at Haripal More.",
   },

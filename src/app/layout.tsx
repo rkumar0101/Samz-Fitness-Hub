@@ -25,22 +25,26 @@ const SITE_URL = "https://samzfitnesshub.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${BRAND.name} | Gyms in Siliguri — 4 Branches`,
+    default: `Best Gym in Siliguri | ${BRAND.name} — 4 Branches`,
     template: `%s | ${BRAND.name}`,
   },
   description:
-    "Samz Fitness Hub runs 4 gyms across Siliguri — Laketown, Arabinda Pally, Haiderpara, and Central. Transparent monthly and yearly memberships, morning and evening batches, PT support, and a current ₹0 joining fee offer.",
+    "Best gym in Siliguri with 4 branches across Laketown, Arabinda Pally, Haiderpara, and Central. Transparent monthly and yearly plans, PT support, morning + evening batches, ₹0 joining fee offer.",
   keywords: [
-    "Samz Fitness Hub",
     "gym in Siliguri",
+    "best gym in Siliguri",
+    "best gyms in Siliguri",
+    "best gym Siliguri",
+    "Samz Fitness Hub",
     "Siliguri fitness",
+    "gym near me Siliguri",
     "Laketown gym",
     "Haiderpara gym",
     "Arabinda Pally gym",
-    "gym near me Siliguri",
     "personal training Siliguri",
-    "best gym Siliguri",
     "monthly gym membership Siliguri",
+    "ladies gym Siliguri",
+    "unisex gym Siliguri",
   ],
   authors: [{ name: BRAND.name }],
   creator: BRAND.name,
@@ -49,9 +53,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: `${BRAND.name} | Gyms in Siliguri`,
+    title: `Best Gym in Siliguri | ${BRAND.name}`,
     description:
-      "4 neighbourhood gyms across Siliguri. Area-wise memberships, PT support, morning and evening slots.",
+      "Best gym in Siliguri across 4 neighbourhood branches. Transparent pricing, PT support, morning and evening slots. Start with ₹0 joining fee.",
     url: "/",
     siteName: BRAND.name,
     images: [
@@ -59,7 +63,7 @@ export const metadata: Metadata = {
         url: "/samz-fitness-hub.jpeg",
         width: 900,
         height: 720,
-        alt: `${BRAND.name} logo`,
+        alt: `${BRAND.name} — best gym in Siliguri`,
       },
     ],
     locale: "en_IN",
@@ -67,9 +71,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${BRAND.name} | Gyms in Siliguri`,
+    title: `Best Gym in Siliguri | ${BRAND.name}`,
     description:
-      "4 neighbourhood gyms across Siliguri. Area-wise memberships, PT support, morning and evening slots.",
+      "4 branches across Laketown, Arabinda Pally, Haiderpara, and Central Siliguri. Transparent plans, PT, morning + evening slots.",
     images: ["/samz-fitness-hub.jpeg"],
   },
   robots: {
