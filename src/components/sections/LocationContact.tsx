@@ -8,12 +8,17 @@ import { BRAND, BRANCHES, type Branch } from "@/lib/constants";
 import { waLink } from "@/lib/whatsapp";
 
 type LeadState = "idle" | "loading" | "success" | "error";
+type FormShape = { name: string; phone: string; message: string };
 
 export default function LocationContact() {
   const [activeId, setActiveId] = useState(BRANCHES[0].id);
   const [status, setStatus] = useState<LeadState>("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
-  const [form, setForm] = useState({ name: "", phone: "", message: "" });
+  const [form, setForm] = useState<FormShape>({
+    name: "",
+    phone: "",
+    message: "",
+  });
 
   const active = BRANCHES.find((b) => b.id === activeId) ?? BRANCHES[0];
 
@@ -73,93 +78,60 @@ export default function LocationContact() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-          {/* LEFT — branch picker.
-              On mobile (default), each button has an inline drawer below it
-              that opens the active branch's full detail card.
-              On desktop (lg+), the drawer is hidden and the detail card
-              lives in the right column instead. */}
-          <div className="grid gap-3">
-            {BRANCHES.map((b) => {
-              const selected = b.id === active.id;
-              return (
-                <div key={b.id}>
-                  <button
-                    type="button"
-                    onMouseEnter={() => setActiveId(b.id)}
-                    onClick={() => setActiveId(b.id)}
-                    aria-pressed={selected}
-                    aria-expanded={selected}
-                    className={[
-                      "group flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition",
-                      selected
-                        ? "border-[color:var(--fh-red)]/60 bg-[color:var(--fh-red)]/10"
-                        : "border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.05]",
-                    ].join(" ")}
-                  >
-                    <span
-                      className={[
-                        "mt-1 inline-flex h-2 w-2 shrink-0 rounded-full",
-                        selected
-                          ? "bg-[color:var(--fh-red)] shadow-[0_0_0_4px_rgba(255,42,61,0.18)]"
-                          : "bg-white/30",
-                      ].join(" ")}
-                    />
-                    <div className="min-w-0 flex-1">
-                      <p className="font-display text-xl uppercase tracking-tight text-white">
-                        {b.shortName}
-                      </p>
-                      <p className="mt-1 text-sm font-semibold text-white/85">
-                        {b.area}
-                      </p>
-                      <p className="mt-1 text-xs text-white/55">{b.landmark}</p>
-                    </div>
-                    {/* Chevron — rotates when this gym is the active one. Only
-                        visible on mobile where the drawer is the source of truth. */}
-                    <span
-                      aria-hidden
-                      className="lg:hidden mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/15 text-white/70 transition-transform"
-                      style={{ transform: selected ? "rotate(180deg)" : "rotate(0deg)" }}
+        {/* ----- MOBILE / TABLET — accordion drawer ----- */}
+        <div className="mt-12 grid gap-3 lg:hidden">
+          {BRANCHES.map((b) => {
+            const selected = b.id === active.id;
+            return (
+              <div key={b.id}>
+                <PickerButton
+                  branch={b}
+                  selected={selected}
+                  onSelect={() => setActiveId(b.id)}
+                  withChevron
+                />
+                <AnimatePresence initial={false}>
+                  {selected ? (
+                    <motion.div
+                      key="drawer"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
                     >
-                      <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
-                    </span>
-                  </button>
+                      <div className="mt-3">
+                        <BranchDetail
+                          branch={active}
+                          form={form}
+                          setForm={setForm}
+                          status={status}
+                          errorMsg={errorMsg}
+                          onSubmit={submit}
+                        />
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
 
-                  {/* Mobile-only drawer that slides open under the clicked button */}
-                  <div className="lg:hidden">
-                    <AnimatePresence initial={false}>
-                      {selected ? (
-                        <motion.div
-                          key="drawer"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                          className="overflow-hidden"
-                        >
-                          <div className="mt-3">
-                            <BranchDetail
-                              branch={active}
-                              form={form}
-                              setForm={setForm}
-                              status={status}
-                              errorMsg={errorMsg}
-                              onSubmit={submit}
-                            />
-                          </div>
-                        </motion.div>
-                      ) : null}
-                    </AnimatePresence>
-                  </div>
-                </div>
-              );
-            })}
+        {/* ----- DESKTOP — 2-column with persistent detail ----- */}
+        <div className="mt-14 hidden gap-8 lg:grid lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="grid gap-3 self-start">
+            {BRANCHES.map((b) => (
+              <PickerButton
+                key={b.id}
+                branch={b}
+                selected={b.id === active.id}
+                onSelect={() => setActiveId(b.id)}
+              />
+            ))}
           </div>
 
-          {/* RIGHT — desktop-only active branch detail (hidden on mobile) */}
-          <div className="hidden lg:block">
+          <div>
             <AnimatePresence mode="wait">
               <motion.div
                 key={active.id}
@@ -185,10 +157,71 @@ export default function LocationContact() {
   );
 }
 
-/* ---------- BranchDetail subcomponent ---------- */
+/* ---------- PickerButton ---------- */
+function PickerButton({
+  branch,
+  selected,
+  onSelect,
+  withChevron = false,
+}: {
+  branch: Branch;
+  selected: boolean;
+  onSelect: () => void;
+  withChevron?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-pressed={selected}
+      aria-expanded={withChevron ? selected : undefined}
+      className={[
+        "group flex w-full items-start gap-4 rounded-2xl border p-4 text-left transition",
+        selected
+          ? "border-[color:var(--fh-red)]/60 bg-[color:var(--fh-red)]/10"
+          : "border-white/10 bg-white/[0.03] hover:border-white/20 hover:bg-white/[0.05]",
+      ].join(" ")}
+    >
+      <span
+        className={[
+          "mt-1 inline-flex h-2 w-2 shrink-0 rounded-full",
+          selected
+            ? "bg-[color:var(--fh-red)] shadow-[0_0_0_4px_rgba(255,42,61,0.18)]"
+            : "bg-white/30",
+        ].join(" ")}
+      />
+      <div className="min-w-0 flex-1">
+        <p className="font-display text-xl uppercase tracking-tight text-white">
+          {branch.shortName}
+        </p>
+        <p className="mt-1 text-sm font-semibold text-white/85">
+          {branch.area}
+        </p>
+        <p className="mt-1 text-xs text-white/55">{branch.landmark}</p>
+      </div>
+      {withChevron ? (
+        <span
+          aria-hidden
+          className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/15 text-white/70 transition-transform"
+          style={{ transform: selected ? "rotate(180deg)" : "rotate(0deg)" }}
+        >
+          <svg
+            className="h-3 w-3"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </span>
+      ) : null}
+    </button>
+  );
+}
 
-type FormShape = { name: string; phone: string; message: string };
-
+/* ---------- BranchDetail ---------- */
 function BranchDetail({
   branch,
   form,
@@ -237,7 +270,9 @@ function BranchDetail({
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-white/55">
             Address
           </p>
-          <p className="mt-2 text-sm leading-6 text-white/80">{branch.address}</p>
+          <p className="mt-2 text-sm leading-6 text-white/80">
+            {branch.address}
+          </p>
 
           <div className="mt-6 grid gap-3">
             {branch.timings.slice(0, 2).map((t) => (
@@ -246,7 +281,9 @@ function BranchDetail({
                 className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3"
               >
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--fh-red)]" />
-                <span className="text-sm font-semibold text-white/85">{t}</span>
+                <span className="text-sm font-semibold text-white/85">
+                  {t}
+                </span>
               </div>
             ))}
             <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/40">
@@ -297,7 +334,9 @@ function BranchDetail({
             />
             <input
               value={form.phone}
-              onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
+              onChange={(e) =>
+                setForm((p) => ({ ...p, phone: e.target.value }))
+              }
               className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none focus:border-[color:var(--fh-red)]/50 focus:bg-white/[0.06]"
               placeholder="Phone number"
               inputMode="tel"

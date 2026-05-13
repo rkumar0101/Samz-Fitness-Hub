@@ -239,8 +239,13 @@ export default function RootLayout({
       >
         <script
           dangerouslySetInnerHTML={{
+            // Time-based default theme (overridable by saved user preference):
+            //   05:00 – 17:59 → light (day)
+            //   18:00 – 04:59 → dark (night)
+            // If the user has explicitly toggled the theme, that choice is
+            // persisted in localStorage and always wins.
             __html:
-              "try{var t=localStorage.getItem('samz-theme');var d=t?t==='dark':true;document.documentElement.dataset.theme=d?'dark':'light'}catch(e){document.documentElement.dataset.theme='dark'}",
+              "try{var t=localStorage.getItem('samz-theme');var d;if(t==='dark'||t==='light'){d=t==='dark'}else{var h=new Date().getHours();d=h>=18||h<5}document.documentElement.dataset.theme=d?'dark':'light'}catch(e){document.documentElement.dataset.theme='dark'}",
           }}
         />
         <script
